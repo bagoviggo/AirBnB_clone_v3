@@ -1,15 +1,20 @@
 #!/usr/bin/python3
 ''' Flask Application '''
-from flask import Flask, jsonify, render_template, make_response
+from flask import (
+    Flask,
+    jsonify,
+    render_template,
+    make_response
+)
 from os import environ
 from models import storage
 from api.v1.views import app_views
 
 
-
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
+
 
 @app.teardown_appcontext
 def close_db(error):
