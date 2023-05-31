@@ -55,15 +55,6 @@ class DBStorage:
         """add the object to the current database session"""
         self.__session.add(obj)
 
-    def save(self):
-        """commit all changes of the current database session"""
-        self.__session.commit()
-
-    def delete(self, obj=None):
-        """delete from the current database session obj if not None"""
-        if obj is not None:
-            self.__session.delete(obj)
-
     def get(self, cls, id):
         """Retrieve one object based on class and ID"""
         key = cls.__name__ + '.' + id
@@ -74,6 +65,15 @@ class DBStorage:
         if cls is None:
             return sum(len(objects) for objects in self.all().values())
         return len(self.all(cls))
+
+    def save(self):
+        """commit all changes of the current database session"""
+        self.__session.commit()
+
+    def delete(self, obj=None):
+        """delete from the current database session obj if not None"""
+        if obj is not None:
+            self.__session.delete(obj)
 
     def reload(self):
         """reloads data from the database"""
